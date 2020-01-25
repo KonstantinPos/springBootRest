@@ -1,4 +1,4 @@
-package com.spring.rest.spingBoot;
+package com.spring.rest.sping.boot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

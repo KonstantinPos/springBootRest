@@ -16,6 +16,6 @@ public class HelloController {
     @RequestMapping("/")
     public String index() {
         userRepository.save(new User(2L, "skhdfjk","jsdhaj"));
-        return "Greetings from Spring Boot!";
+        return "Greetings from Spring  Boot!";
     }
 }

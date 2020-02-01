@@ -5,11 +5,12 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(schema = "mcs", name = "user")
+@Table(name = "user")
 public class User {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID", updatable = false, nullable = false)
     private Long id;
 
     @Column(name = "first_name")
@@ -18,7 +19,7 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-    public User(Long id, String firstName, String lastName) {
+    public User(String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

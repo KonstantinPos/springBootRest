@@ -15,4 +15,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByFirstName(String name);
 
+    @Override
+    List<User> findAll();
 }

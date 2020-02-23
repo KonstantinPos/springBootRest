@@ -16,8 +16,15 @@ import org.springframework.batch.item.data.RepositoryItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.EnableAsync;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.data.rest.configuration.SpringDataRestConfiguration;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +32,8 @@ import java.util.Map;
 @Configuration
 @EnableBatchProcessing
 @EnableAsync
+@EnableSwagger2WebMvc
+@Import(SpringDataRestConfiguration.class)
 public class SpringConfig {
 
     public JobBuilderFactory jobBuilderFactory;
@@ -41,6 +50,15 @@ public class SpringConfig {
         this.userRepository = userRepository;
         this.userItemProcessor = userItemProcessor;
         this.jobRepository = jobRepository;
+    }
+
+    @Bean
+    public Docket api() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select()
+                .apis(RequestHandlerSelectors.any())
+                .paths(PathSelectors.any())
+                .build();
     }
 
     @Bean

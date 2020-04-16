@@ -10,6 +10,8 @@ import org.springframework.batch.core.repository.JobExecutionAlreadyRunningExcep
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -34,6 +36,12 @@ public class UserController {
     @GetMapping("all-users")
     public List<User> getAll() {
         return userService.findAll();
+    }
+
+    @GetMapping("all-users-pageable")
+    public List<User> findAllPageable(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                                      @RequestParam(name = "size", required = false, defaultValue = "10") Integer size) {
+        return userService.findAllPageable(PageRequest.of(page, size, Sort.by("last_name").descending()));
     }
 
     @GetMapping("user/{userId}")

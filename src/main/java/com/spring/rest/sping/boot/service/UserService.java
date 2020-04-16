@@ -1,6 +1,7 @@
 package com.spring.rest.sping.boot.service;
 
 import com.spring.rest.sping.boot.model.User;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,4 +21,6 @@ public interface UserService {
     void updateUser(User user);
 
     void deleteUser(User user);
+
+    List<User> findAllPageable(Pageable pageable);
 }

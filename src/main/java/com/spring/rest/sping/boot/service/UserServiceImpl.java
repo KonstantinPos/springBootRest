@@ -1,8 +1,10 @@
 package com.spring.rest.sping.boot.service;
 
 import com.spring.rest.sping.boot.model.User;
+import com.spring.rest.sping.boot.repository.UserPageableRepository;
 import com.spring.rest.sping.boot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,8 +15,18 @@ import java.util.Optional;
 @Transactional
 public class UserServiceImpl implements UserService {
 
-    @Autowired
+
     private UserRepository userRepository;
+    private UserPageableRepository userPageableRepository;
+
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository, UserPageableRepository userPageableRepository) {
+        this.userRepository = userRepository;
+        this.userPageableRepository = userPageableRepository;
+    }
+
+    public UserServiceImpl() {
+    }
 
     @Override
     public User findByFirstName(String name) {
@@ -49,5 +61,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(User user) {
         userRepository.delete(user);
+    }
+
+    @Override
+    public List<User> findAllPageable(Pageable pageable) {
+        return userPageableRepository.findAllPageable(pageable);
     }
 }
